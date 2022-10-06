@@ -1,0 +1,8 @@
+
+
+
+source "${DOTFILES_HOME}/bash/bash.d/aws_profile_completion"
+source "${DOTFILES_HOME}/bash/bash.d/kube_profile_completion"
+
+alias aprofile="source $DOTFILES_HOME/bash/bash.d/aws_profile"
+alias kprofile="source $DOTFILES_HOME/bash/bas

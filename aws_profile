@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+PROFILE="$1"
+declare_variables() {
+    PROFILES=($(cat ~/.aws/config | grep '\[profile' | sed -n 's/\[profile \(.*\).*\]/\1/p' | sort))
+    ALIAS="aprofile"
+    r="\033[0;31m" # red
+    y="\033[1;33m" # yellow
+    x="\033[0m" # reset
+}
+
+aprofile_help() {
+    echo "Usage: aprofile <profile>"
+    echo
+    echo "Configured profiles  : ${PROFILES[@]}"
+}
+
+set_profile() {
+if [ -z "$PROFILE" ];  then
+    aprofile_help
+elif [[ ! " ${PROFILES[@]} " =~ " ${PROFILE} " ]]; then
+    echo -e "Error: profile ${r}${PROFILE}${x} not found"
+    aprofile_help
+else
+    export AWS_PROFILE=${PROFILE}
+fi
+}
+
+main() {
+    declare_variables
+    set_profile
+}
+
+main
